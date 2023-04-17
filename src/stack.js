@@ -12,21 +12,45 @@ const { NotImplementedError } = require('../extensions/index.js');
  * stack.pop(); // undefined
  *
  */
+class StackNode{
+  constructor(x) {
+    this.value = x;
+    this.next = null;
+  }
+}
+
 class Stack {
-  push(/* element */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(){
+    this.pivot = null;
+  }
+
+  push(value) {
+    let newStack = new StackNode(value);
+    if (this.pivot)
+      newStack.next = this.pivot;
+    this.pivot = newStack;
   }
 
   pop() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.pivot)
+      return undefined;
+    if (this.pivot.next){
+      let temp = this.pivot;
+      this.pivot = this.pivot.next;
+      return temp.value;
+    }
+    if (this.pivot){
+      let i = this.pivot.value;
+      this.pivot=null;
+      return i;
+    }
   }
 
   peek() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.pivot.value;
   }
+
+  
 }
 
 module.exports = {
